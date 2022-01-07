@@ -1,4 +1,4 @@
-""" looking for opportunity
+""" Looking for opportunity
 """
 from web3 import Web3
 import sys
