@@ -20,8 +20,8 @@ RUN echo ". $CONDA_DIR/etc/profile.d/conda.sh" >> ~/.profile
 # The conda environment with everything beyond the basics
 # will be built in this user's home 
 ENV USER birdman
-ENV UID 1001
-ENV GID 1002
+ENV UID 1002
+ENV GID 1003
 ENV HOME /home/$USER
 RUN addgroup --gid $GID traders
 RUN adduser --disabled-password \

@@ -5,6 +5,9 @@ import sys
 import os
 import pathlib
 import pandas as pd
+import math
+from datetime import datetime
+import calendar
 
 # Set up for Fantom
 sys.path.append(os.path.join(pathlib.Path().absolute(), 'app'))
@@ -14,13 +17,22 @@ from ftm_addresses import token_abi, pairs_abi, router_abi, factory_abi
 from ftm_addresses import factory_addresses, router_addresses
 from ftm_addresses import token_address_dict, pair_address_dict
 
-import math
-from datetime import datetime
-import calendar
 from getprice import getprice
 from approve import approve_spend
 from ftmbuy import buy
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+# Record to file
 if os.path.isfile("arbfile.csv"):
     arb_record = pd.read_csv("arbfile.csv")
 else:
@@ -30,10 +42,24 @@ web3 = Web3(Web3.HTTPProvider(endpoint))
 print("Looking for arbortunity. Web3 connection status:", web3.isConnected())
 wallet_address = web3.toChecksumAddress(wallet_address)
 weth_address = web3.toChecksumAddress(token_address_dict["WFTM"])
+eth_address = web3.toChecksumAddress(token_address_dict["FTM"])
 tokens = token_address_dict.keys()
 
+print(bcolors.OKBLUE + "Using wallet: ", wallet_address + bcolors.ENDC)
+weth_address = web3.toChecksumAddress(token_address_dict["WFTM"])
+weth_contract = web3.eth.contract(address=eth_address, abi=token_abi)
+balance = weth_contract.functions.balanceOf(wallet_address).call()
+print("Available FTM: {}".format(balance))
+balance = weth_contract.functions.balanceOf("0x431DEC52A66166A70916894Aeb8066C09bC70Aa1").call()
+print("Available FTM: {}".format(balance))
+balance = weth_contract.functions.balanceOf("0xC6F22Bd725FD986FcacD7bFeaf94fDAE2D1E3Bc4").call()
+print("Available FTM: {}".format(balance))
+balance = weth_contract.functions.balanceOf("0xEFF08Df9c929253aD91f775b18E346a0eFE09D15").call()
+print("Available FTM: {}".format(balance))
+1/0
+
 # Configuration
-spend_amount = 10
+spend_amount = 1
 slippage = 0.05
 # how much price difference do we need?
 margin = 0.01
@@ -46,10 +72,9 @@ tokens_to_search = [*token_address_dict]
 tokens_to_search.remove('FTM')
 tokens_to_search.remove('WFTM')
 dex_pairs_tokens = {
-        #('spooky', 'hyper'): ['WBTC', 'WETH', 'BNB'],
         #('spooky', 'sushi'): ['CRV'],
-        ('spooky', 'spirit'): tokens_to_search
-        #('spooky', 'spirit'): ['BNB','SUSHI','LINK','ZOO'], 
+        #('spooky', 'spirit'): tokens_to_search
+        ('spooky', 'spirit'): ['BNB','SUSHI','LINK','ZOO'], 
         #('spooky', 'waka'): ['WBTC','ZOO','WETH','BAND'],
         #('spirit','waka'):  ['WBTC','ZOO','WETH']
 }
