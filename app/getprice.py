@@ -88,10 +88,10 @@ if __name__ == '__main__':
     print("reserves")
     router_address = router_addresses[dex1]
     router_contract = web3.eth.contract(address=web3.toChecksumAddress(router_address), abi=router_abi)
+    
     print("router")
-
-    bid_price1, ask_price1 = getprice(web3, token_symbol, dex1, verbose=True)
-    bid_price2, ask_price2 = getprice(web3, token_symbol, dex2, verbose=True)
+    bid_price1, ask_price1, bid_price1_ftm, ask_price1_ftm = getprice(web3, token_symbol, dex1)
+    bid_price2, ask_price2, bid_price2_ftm, ask_price2_ftm = getprice(web3, token_symbol, dex2)
     print("Function called, now checking")
 
     # Now check
