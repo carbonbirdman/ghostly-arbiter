@@ -72,7 +72,7 @@ RUN conda config --prepend pkgs_dirs /home/birdman/.conda/pkgs
 # Export env file here for reproduction (before manual installations)
 # When the conda environment install doesn't work, use this pattern to build manually.
 # Careful then of exporting the environment with this in it.
-#SHELL ["/bin/bash", "--login", "-c"]
+SHELL ["/bin/bash", "--login", "-c"]
 #RUN conda activate /home/birdman/.conda/envs/app && \
 #    conda install --prefix /home/birdman/.conda/envs/app -c conda-forge ta-lib && \
 #    conda deactivate
