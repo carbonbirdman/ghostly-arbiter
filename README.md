@@ -22,9 +22,12 @@ The run.sh script and entrypoint.sh are used when you want to run it on the cont
 
 List of dexes and tokens is set in script.
 
-You will need to add a file called secrets.py with your account key and RPC url.
+You will need to add a file called ftm_secrets.py with your account key and RPC url - be extremely careful with this file!
 
-Sleep statements may need adjusting if you find yourself over your request limit.
+I can't guarantee the security of the Docker setup or the Python code: if you decide to run this connected to a real account,
+please do your own research into security of running containers and don't use an account with your life savings!
+
+Sleep statements may need adjusting if you find yourself over your request limit, depnding on your Ankr plan.
 
 If this is useful to you I would appreciate knowing.
 
